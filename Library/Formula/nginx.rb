@@ -11,6 +11,7 @@ class Nginx < Formula
   end
 
   depends_on 'pcre'
+  depends_on 'libgd'
 
   skip_clean 'logs'
 
@@ -41,6 +42,7 @@ class Nginx < Formula
 
   def install
     args = ["--prefix=#{prefix}",
+            "--with-http_image_filter_module",
             "--with-http_ssl_module",
             "--with-pcre",
             "--with-cc-opt='-I#{HOMEBREW_PREFIX}/include'",
