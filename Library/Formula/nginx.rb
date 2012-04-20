@@ -42,6 +42,7 @@ class Nginx < Formula
 
   def install
     args = ["--prefix=#{prefix}",
+            "--with-ipv6",
             "--with-http_image_filter_module",
             "--with-http_ssl_module",
             "--with-pcre",
