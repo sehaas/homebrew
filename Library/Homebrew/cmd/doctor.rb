@@ -210,7 +210,7 @@ def check_for_broken_symlinks
     end
   end
   unless broken_symlinks.empty? then <<-EOS.undent
-    Broken symlinks were found. Remove them with `brew prune':
+    Broken symlinks were found. Remove them with `brew prune`:
       #{broken_symlinks * "\n      "}
     EOS
   end
@@ -872,6 +872,16 @@ def check_for_bad_python_symlink
   unless $1 == "2" then <<-EOS.undent
     python is symlinked to python#$1
     This will confuse build scripts and in general lead to subtle breakage.
+    EOS
+  end
+end
+
+def check_for_pydistutils_cfg_in_home
+  if File.exist? ENV['HOME']+'/.pydistutils.cfg' then <<-EOS.undent
+    A .pydistutils.cfg file was found in $HOME, which may cause Python
+    builds to fail. See:
+      http://bugs.python.org/issue6138
+      http://bugs.python.org/issue4655
     EOS
   end
 end
